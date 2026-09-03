@@ -34,5 +34,9 @@ namespace ArticulosCRUD
             }
             return null;
         }
+        public List<Producto> BuscarProductosPorNombre(string nombre)
+        {
+            return ListaProductos.Where(p => p.Nombre.Contains(nombre, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
     }
 }

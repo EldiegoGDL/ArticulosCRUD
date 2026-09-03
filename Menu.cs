@@ -54,10 +54,14 @@ namespace ArticulosCRUD
                         MostrarBuscar();
                         break;
                     case "4":
+
+                        MostrarBuscarNombre();
+                        break;
+                    case "5":
                         
                         MostrarModificar();
                         break;
-                    case "5":
+                    case "6":
                         
                         MostrarEliminar();
                         break;
@@ -114,6 +118,21 @@ namespace ArticulosCRUD
             else
             {
                 Console.WriteLine("Producto no encontrado.");
+            }
+            Console.ReadLine();
+        }
+
+        public void MostrarBuscarNombre()
+        {
+            Console.Clear();
+            Console.WriteLine("Buscar Por Nombre");
+            Console.WriteLine("==================");
+            Console.WriteLine();
+            Console.WriteLine("Nombre: ");
+            string nombre = Console.ReadLine();
+            foreach (Producto item in Manejador.BuscarProductosPorNombre(nombre))
+            {
+                Console.WriteLine(item.ToString());
             }
             Console.ReadLine();
         }
