@@ -38,5 +38,37 @@ namespace ArticulosCRUD
         {
             return ListaProductos.Where(p => p.Nombre.Contains(nombre, StringComparison.OrdinalIgnoreCase)).ToList();
         }
+
+        public void ModificarProducto(int id, string nombre, int cantidad, decimal precio)
+        {
+            Producto producto = BuscarProductoID(id);
+            if (producto != null)
+            {
+                producto.Nombre = nombre;
+                producto.Cantidad = cantidad;
+                producto.Precio = precio;
+                Console.WriteLine("Producto actualizado correctamente.");
+            }
+            else
+            {
+                Console.WriteLine("Producto no encontrado.");
+            }
+        }
+
+        public void EliminarProducto(int id)
+        {
+            Producto producto = BuscarProductoID(id);
+            if (producto != null)
+            {
+                ListaProductos.Remove(producto);
+                Console.WriteLine("Producto eliminado correctamente.");
+            }
+            else
+            {
+                Console.WriteLine("Producto no encontrado.");
+            }
+        }
+
+
     }
 }

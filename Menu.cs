@@ -26,7 +26,7 @@ namespace ArticulosCRUD
                 Console.Clear();
                 Console.WriteLine(Titulo);
                 Console.WriteLine(new string('=', Titulo.Length));
-                for (int i = 0;  i < Opciones.Length;  i++)
+                for (int i = 0; i < Opciones.Length; i++)
                 {
                     Console.WriteLine($"{i + 1}. {Opciones[i]}");
                 }
@@ -42,15 +42,15 @@ namespace ArticulosCRUD
                 switch (opcion)
                 {
                     case "1":
-                        
+
                         MostrarAgregar();
                         break;
                     case "2":
-                        
+
                         MostrarListar();
                         break;
                     case "3":
-                        
+
                         MostrarBuscar();
                         break;
                     case "4":
@@ -58,12 +58,55 @@ namespace ArticulosCRUD
                         MostrarBuscarNombre();
                         break;
                     case "5":
-                        
+
                         MostrarModificar();
                         break;
                     case "6":
-                        
+
                         MostrarEliminar();
+                        break;
+                    case "0":
+                        continuar = false;
+                        break;
+                    default:
+                        Console.WriteLine("Opción Inválida.");
+                        Console.ReadLine();
+                        break;
+                }
+            }
+
+        }
+
+        public void MostrarMenuBuscar()
+        {
+            bool continuar = true;
+            while (continuar)
+            {
+                Console.Clear();
+                Console.WriteLine(Titulo);
+                Console.WriteLine(new string('=', Titulo.Length));
+                for (int i = 0; i < Opciones.Length; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {Opciones[i]}");
+                }
+                Console.WriteLine("Buscar artículos");
+                Console.WriteLine("===================");
+                Console.WriteLine("1. Por ID");
+                Console.WriteLine("2. Por Nombre");
+                //Console.WriteLine("3. Buscar");
+                //Console.WriteLine("4. Modificar");
+                //Console.WriteLine("5. Eliminar");
+                Console.WriteLine("0. salir");
+                string opcion = Console.ReadLine() ?? "";
+                switch (opcion)
+                {
+                    case "1":
+
+                        MostrarBuscar();
+                        break;
+                    case "2":
+
+                        MostrarBuscarNombre();
                         break;
                     case "0":
                         continuar = false;
@@ -157,14 +200,51 @@ namespace ArticulosCRUD
         public void MostrarModificar()
         {
             Console.Clear();
-            Console.WriteLine("Opcion Modificar Seleccionada");
+            Console.WriteLine("Modificar Producto");
+            Console.WriteLine("==================");
+            Console.Write("ID: ");
+            int id = PedirValorEntero("ID");
+            Producto producto = Manejador.BuscarProductoID(id);
+            if (producto != null)
+            {
+                Console.WriteLine($"Producto encontrado: {producto.ToString()}");
+                Console.Write("Nuevo Nombre: ");
+                string nombre = Console.ReadLine();
+                Console.Write("Nuevo Precio: ");
+                decimal precio = decimal.TryParse(Console.ReadLine(), out decimal valor) ? valor : 0;
+                Console.Write("Nueva Cantidad: ");
+                int cantidad = int.TryParse(Console.ReadLine(), out int valor2) ? valor2 : 0;
+                Manejador.ModificarProducto(id, nombre, cantidad, precio);
+            }
+            else
+            {
+                Console.WriteLine("Producto no encontrado.");
+            }
             Console.ReadLine();
         }
 
         public void MostrarEliminar()
         {
             Console.Clear();
-            Console.WriteLine("Opcion Eliminar Seleccionada");
+            Console.WriteLine("Eliminar Producto");
+            Console.WriteLine("==================");
+            Console.Write("ID: ");
+            int id = PedirValorEntero("ID del producto");
+            Producto? producto = Manejador.BuscarProductoID(id);
+            if (producto != null)
+            {
+                Console.WriteLine($"Producto encontrado: {producto.ToString()}");
+                Console.WriteLine("¿Está seguro que desea eliminar este producto? (s/n)");
+                string respuesta = Console.ReadLine()?.Trim() ?? "n";
+                if (respuesta.Equals("s", StringComparison.OrdinalIgnoreCase))
+                {
+                    Manejador.EliminarProducto(id);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Producto no encontrado.");
+            }
             Console.ReadLine();
         }
 
