@@ -51,17 +51,13 @@ namespace ArticulosCRUD
                         break;
                     case "3":
 
-                        MostrarBuscar();
+                        MostrarMenuBuscar();
                         break;
                     case "4":
 
-                        MostrarBuscarNombre();
-                        break;
-                    case "5":
-
                         MostrarModificar();
                         break;
-                    case "6":
+                    case "5":
 
                         MostrarEliminar();
                         break;
